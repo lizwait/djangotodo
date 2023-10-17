@@ -1,12 +1,6 @@
 import React from '../web/node_modules/@types/react/ts5.0';
 import axios from '../web/node_modules/axios';
-
-interface Task {
-  id: number;
-  title: string;
-  description: string;
-  completed: boolean;
-}
+import { Task } from './types'; // Import the Task type from your types.ts file
 
 interface CompleteTaskProps {
   task: Task;

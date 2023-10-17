@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from '../web/node_modules/@types/react/ts5.0';
-import axios from '../web/node_modules/axios';
+import React, { useState, useEffect } from 'react';
+import axios, { AxiosResponse } from '../web/node_modules/axios';
+import { Task } from './types';
 
-interface Task {
-  id: number;
-  title: string;
-  description: string;
-  completed: boolean;
+interface TaskListProps {
+  tasks: Task[];
+  onEditTask: (task: Task) => void;
+  onCompleteTask: (taskId: number) => void;
 }
 
-const TaskList: React.FC = () => {
+const TaskList: React.FC<TaskListProps> = ({ tasks: propTasks, onEditTask, onCompleteTask }) => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   useEffect(() => {
-    // Fetch tasks from your Django API when the component mounts
     axios
-      .get('http://localhost:8000/api/tasks/') // Update the API endpoint to use your local Django server
-      .then((response) => {
+      .get('http://localhost:8000/api/tasks/')
+      .then((response: AxiosResponse<Task[]>) => { // Specify the type for response
         setTasks(response.data);
       })
       .catch((error) => {
@@ -26,7 +25,7 @@ const TaskList: React.FC = () => {
   return (
     <div>
       <h1>Task List</h1>
-      {tasks.map((task) => (
+      {propTasks.map((task) => (
         <div key={task.id}>
           <h2>{task.title}</h2>
           <p>{task.description}</p>
