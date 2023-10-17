@@ -1,5 +1,6 @@
-import React, { useState } from '../todo_web/node_modules/@types/react/ts5.0';
-import axios from '../todo_web/node_modules/axios';
+import React, { useState } from 'react';
+import axios from '../web/node_modules/axios';
+import { Task } from './types'; // Import the Task type from your types.ts file
 
 interface AddTaskProps {
   onAddTask: (newTask: Task) => void;
@@ -27,4 +28,22 @@ const AddTask: React.FC<AddTaskProps> = ({ onAddTask }) => {
   };
 
   return (
-    <
+    <div>
+      <input
+        type="text"
+        placeholder="Task Title"
+        value={newTaskTitle}
+        onChange={(e) => setNewTaskTitle(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Task Description"
+        value={newTaskDescription}
+        onChange={(e) => setNewTaskDescription(e.target.value)}
+      />
+      <button onClick={handleAddTask}>Add Task</button>
+    </div>
+  );
+};
+
+export default AddTask;
